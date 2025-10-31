@@ -1,8 +1,10 @@
 // src/components/Sidebar.jsx
+import { useState } from "react";
 import { Link, useLocation } from "react-router";
 
 export default function Sidebar() {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const links = [
     { to: "/", label: "Dashboard" },
@@ -13,20 +15,60 @@ export default function Sidebar() {
   return (
 
     
-    <aside className="fixed w-60 h-[94vh] bg-blue-800/25 p-6 space-y-4 rounded-2xl ml-3 mt-7">
+    
+    <>
+      {/* Botón hamburguesa SOLO en móvil */}
+      <button
+        className="fixed top-4 left-4 z-50 md:hidden bg-fuchsia-700 text-white p-2 rounded-lg shadow-lg"
+        onClick={() => setIsOpen(true)}
+      >
+        ☰
+      </button>
 
-      <h1 className="text-xl font-bold mb-6">GymTrack</h1>
-      <nav className="flex flex-col gap-3">
-        {links.map((link) => (
-          <Link key={link.to} to={link.to}
-        className={`rounded-lg px-3 py-2 transition ${location.pathname === link.to? "bg-fuchsia-800 text-white"  : "text-gray-400 hover:text-white hover:bg-fuchsia-500/20"}`}
-          >
-            {link.label}
-          
-          </Link>
+      {/* Fondo oscuro cuando el menú está abierto en móvil */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
 
-        ))}
-      </nav>
-    </aside>
+      {/* Sidebar fijo */}
+      <aside
+        className={`fixed top-0 left-0 h-full w-60 bg-blue-800/25 backdrop-blur-sm
+          p-6 space-y-4 rounded-r-2xl shadow-lg z-50
+          transform transition-transform duration-300
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          md:translate-x-0
+        `}
+      >
+        <h1 className="text-xl font-bold mb-6 text-white">GymTrack</h1>
+
+        {/* Botón cerrar (solo móvil) */}
+        <button
+          className="absolute top-4 right-4 md:hidden text-white"
+          onClick={() => setIsOpen(false)}
+        >
+          ✕
+        </button>
+
+        <nav className="flex flex-col gap-3">
+          {links.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`rounded-lg px-3 py-2 transition ${
+                location.pathname === link.to
+                  ? "bg-fuchsia-800 text-white"
+                  : "text-gray-300 hover:text-white hover:bg-fuchsia-500/20"
+              }`}
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      </aside>
+    </>
   );
 }

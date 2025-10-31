@@ -41,7 +41,7 @@ const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
     <main className="">
 
 <div className="flex items-center backdrop-blur-xl justify-between mb-7">
-    <h1 className="text-black">Entrenamientos</h1>
+    <h1 className="text-black ml-7">Entrenamientos</h1>
 
 {/* ✅ el botón abre la modal */}
         <button
@@ -58,29 +58,6 @@ const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
  
 <article key={item.id} className="backdrop-blur-xl bg-gray-400/15 mb-10 border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/40 text-black text-left">
   <h2 className="text-2xl text-left font-bold mb-4 border-b border-white/10 pb-2">{item.nombre} | {new Date(item.created_at).toLocaleDateString("es")}</h2>
-
-{/* ESTA LISTA ES CON LOS TITULOS DUPLICADOS */}
-
-  {/* <ul className="space-y-3 text-sm">
-    {item.serie_test?.length > 0 ? (
-        
-        
-          item.serie_test.map((serie) => (
-            <li
-              key={serie.id}
-              className="border-b border-white/10 pb-2 last:border-none"
-            >
-              <h3 className="font-medium mb-1">{serie.nombre_ejercicio}</h3>
-              <p>
-                {serie.repeticiones} repeticiones · {serie.peso} kg
-              </p>
-            </li>
-          ))
-        ) : (
-          <li className="italic text-gray-500">No hay ejercicios aún</li>
-        )}
-
-  </ul> */}
 
 <ul className="space-y-3 text-sm">
   {item.serie_test?.length > 0 ? (

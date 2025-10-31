@@ -14,20 +14,23 @@ function App() {
   return (
     <>    
     <BrowserRouter>
+
 <div className="flex min-h-screen w-full text-white">
 
-    <TailwindBackground />
+  <TailwindBackground />
 
-    <Sidebar/>
+  <Sidebar/>
 
-<main className="flex-1 p-8 ml-60 overflow-y-auto">
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/cards" element={<Cards />} />
-          <Route path="/entrenamientos" element={<Entrenamientos />} />
-        </Routes>
-</main>
-      </div>
+<main className="md:pl-64 p-8 w-full"> 
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/cards" element={<Cards />} />
+            <Route path="/entrenamientos" element={<Entrenamientos />} />
+          </Routes>
+  </main>
+  
+</div>
+
      </BrowserRouter>
     </>
 
