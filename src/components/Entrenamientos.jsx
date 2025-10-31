@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
+import NewWorkout from "./NewWorkout";
+import NewSerie from "./NewSerie";
 
 
 function Entrenamientos() {
 
 const [series, setSeries] = useState([]); // 👈 estado para guardar los datos
 
-  useEffect(() => {
+const [isOpenAddWorkout, setIsOpenAddWorkout] = useState(false); // estado de ventana modal workouts
+
+const [isOpenAddSeries, setIsOpenAddSeries] = useState(false); // estado de ventana modal series
+
+const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
+
+
     const fetchSeries = async () => {
       const { data, error } = await supabase
       .from('entrenamientos_test')
@@ -20,7 +28,12 @@ const [series, setSeries] = useState([]); // 👈 estado para guardar los datos
       }
     };
 
+
+
+
+  useEffect(() => {
     fetchSeries();
+
   }, []); // solo se ejecuta al montar
 
 
@@ -29,16 +42,21 @@ const [series, setSeries] = useState([]); // 👈 estado para guardar los datos
 
 <div className="flex items-center backdrop-blur-xl justify-between mb-7">
     <h1 className="text-black">Entrenamientos</h1>
-    <button className="bg-fuchsia-800/40 border border-white/20 rounded-2xl h-10 w-60 text-black text-center mt-2">Añadir entrenamiento</button>
 
+{/* ✅ el botón abre la modal */}
+        <button
+          className="bg-fuchsia-800/40 border border-white/20 rounded-2xl h-10 w-60 text-black text-center cursor-pointer mt-2"
+          onClick={() => setIsOpenAddWorkout(true)}
+        >
+          Añadir entrenamiento
+        </button>
+        
     </div>
 
 <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-  
   {series.map((item) => (
-       
-
-       <article key={item.id} className="backdrop-blur-xl bg-gray-400/15 mb-10 border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/40 text-black text-left">
+ 
+<article key={item.id} className="backdrop-blur-xl bg-gray-400/15 mb-10 border border-white/10 rounded-3xl p-6 shadow-xl shadow-black/40 text-black text-left">
   <h2 className="text-2xl text-left font-bold mb-4 border-b border-white/10 pb-2">{item.nombre} | {new Date(item.created_at).toLocaleDateString("es")}</h2>
 
 {/* ESTA LISTA ES CON LOS TITULOS DUPLICADOS */}
@@ -93,17 +111,28 @@ const [series, setSeries] = useState([]); // 👈 estado para guardar los datos
   )}
 </ul>
 
+
 <div className="mt-5 flex justify-between text-xs text-black">
     <span>Total: 10 series</span>
-        <button className="bg-fuchsia-800/40 border border-white/20 text-black rounded-2xl h-7 w-60 text-center mt-2">Añadir ejercicio</button>
-  </div>
+        <button className="bg-fuchsia-800/40 border border-white/20 text-black rounded-2xl h-7 w-60 text-center mt-2"
+          onClick={() => {
+            setIsOpenAddSeries(true)
+            setSelectedWorkoutId(item.id)   // 👈 guardas el id del entrenamiento
+          }
+          }
+      >Añadir ejercicio</button>
+</div>
+
+
 </article>
-
-
-
-      ))}
+))}
 
 </div>
+
+      <NewWorkout open={isOpenAddWorkout} onClose={() => setIsOpenAddWorkout(false)} onInserted={fetchSeries}/>
+
+      <NewSerie open={isOpenAddSeries} onClose={() => setIsOpenAddSeries(false)} id = {selectedWorkoutId} onInserted={fetchSeries}/>
+
     </main>
 
   );
