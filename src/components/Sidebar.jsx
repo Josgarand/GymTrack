@@ -8,7 +8,7 @@ export default function Sidebar() {
 
   const links = [
     { to: "/", label: "Dashboard" },
-    { to: "/cards", label: "Cards" },
+    { to: "/rutinas", label: "Rutinas" },
     { to: "/entrenamientos", label: "Entrenamientos" },
   ];
 
@@ -19,7 +19,7 @@ export default function Sidebar() {
     <>
       {/* Botón hamburguesa SOLO en móvil */}
       <button
-        className="fixed top-4 left-4 z-50 md:hidden bg-fuchsia-700 text-white p-2 rounded-lg shadow-lg"
+        className="fixed mt-8 left-4 z-50 md:hidden bg-fuchsia-800/40 text-white p-2 rounded-lg shadow-lg"
         onClick={() => setIsOpen(true)}
       >
         ☰

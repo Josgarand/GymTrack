@@ -1,41 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router';
-import Sidebar from './components/Sidebar';
-import Dashboard from './components/Dashboard';
-import Cards from './components/Cards';
-import Entrenamientos from './components/Entrenamientos';
-import { TailwindBackground } from './components/TailwindBackground';
+import { BrowserRouter, Routes, Route } from "react-router";
+import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
+import Entrenamientos from "./pages/Entrenamientos";
+import { TailwindBackground } from "./components/TailwindBackground";
+import "./App.css";
+import Rutinas from "./pages/Rutinas";
 
-function App() {
-
+export default function App() {
   return (
-    <>    
     <BrowserRouter>
+      {/* Contenedor general */}
+      <div className="relative min-h-screen w-full overflow-x-hidden">
+        {/* Fondo decorativo */}
+        {/* <TailwindBackground /> */}
 
-<div className="flex min-h-screen w-full text-white">
+        {/* Sidebar fijo */}
+        <Sidebar />
 
-  <TailwindBackground />
-
-  <Sidebar/>
-
-<main className="md:pl-64 p-8 w-full"> 
+        {/* Contenido principal */}
+        <main className="mt-16 md:pl-104 md:pr-40 transition-all duration-300">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/cards" element={<Cards />} />
+            <Route path="/rutinas" element={<Rutinas />} />
             <Route path="/entrenamientos" element={<Entrenamientos />} />
           </Routes>
-  </main>
-  
-</div>
-
-     </BrowserRouter>
-    </>
-
-  )
+        </main>
+      </div>
+    </BrowserRouter>
+  );
 }
-
-export default App
-

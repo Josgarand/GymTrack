@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
-import NewWorkout from "./NewWorkout";
-import NewSerie from "./NewSerie";
+import NewWorkout from "../components/NewWorkout";
+import NewSerie from "../components/NewSerie";
 
 
 function Entrenamientos() {
@@ -38,20 +38,20 @@ const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
 
 
   return (
-    <main className="">
+    <main >
 
-<div className="flex items-center backdrop-blur-xl justify-between mb-7">
-    <h1 className="text-black ml-7">Entrenamientos</h1>
+      <div className="flex flex-col mt-5 md:flex-row items-center backdrop-blur-xl justify-between mb-7">
+        <h1 className="text-black ml-7">Entrenamientos</h1>
 
-{/* ✅ el botón abre la modal */}
-        <button
-          className="bg-fuchsia-800/40 border border-white/20 rounded-2xl h-10 w-60 text-black text-center cursor-pointer mt-2"
-          onClick={() => setIsOpenAddWorkout(true)}
-        >
-          Añadir entrenamiento
-        </button>
-        
-    </div>
+      {/* ✅ el botón abre la modal */}
+            <button
+              className="bg-fuchsia-800/40 border border-white/20 rounded-2xl h-15 w-80 text-black font-bold text-center cursor-pointer mt-2"
+              onClick={() => setIsOpenAddWorkout(true)}
+            >
+              Añadir entrenamiento
+            </button>
+
+      </div>
 
 <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
   {series.map((item) => (
